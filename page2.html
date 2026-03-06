@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Christian Gaming Website</title>
+
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #f0f8ff, #d6eaf8);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #2e86c1;
+    color: white;
+    padding: 15px;
+    font-size: 1.5em;
+}
+
+nav {
+    background-color: #154360;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    padding: 20px;
+}
+
+.verse-box {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.quiz-box {
+    background: #fef9e7;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+button {
+    background-color: #28b463;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background-color: #1d8348;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>✝ Christian Gaming Website ✝</header>
+
+<nav>
+<a href="#verse">Bible Verse</a>
+<a href="#quiz">Bible Quiz</a>
+</nav>
+
+<video width="500" src="Video1.mp4" poster="thumbnail.png" loop controls></video>
+
+<div class="container">
+
+<!-- Bible Verse Section -->
+<section id="verse" class="verse-box">
+<h2>Daily Bible Verse</h2>
+<p id="bibleVerse">Click the button to see a verse</p>
+<button onclick="showVerse()">Show Verse</button>
+</section>
+
+<!-- Quiz Section -->
+<section id="quiz" class="quiz-box">
+<h2>Bible Quiz</h2>
+<p id="question"></p>
+<div id="answers"></div>
+<p id="result"></p>
+<button onclick="nextQuestion()">Next Question</button>
+</section>
+
+</div>
+
+<script>
+
+// Bible verses
+const verses = [
+"For God so loved the world that He gave His one and only Son. - John 3:16",
+"I can do all things through Christ who strengthens me. - Philippians 4:13",
+"The Lord is my shepherd; I shall not want. - Psalm 23:1",
+"Trust in the Lord with all your heart. - Proverbs 3:5",
+"Be strong and courageous. - Joshua 1:9",
+"Your word is a lamp to my feet and a light to my path. - Psalm 119:105",
+"Give thanks to the Lord for He is good. - Psalm 107:1",
+"The joy of the Lord is your strength. - Nehemiah 8:10"
+];
+
+// Show random verse
+function showVerse() {
+const verse = verses[Math.floor(Math.random() * verses.length)];
+document.getElementById("bibleVerse").textContent = verse;
+}
+
+// Quiz questions
+const quizData = [
+
+{question:"Who built the ark?",answers:["Moses","Noah","David","Abraham"],correct:1},
+
+{question:"Where was Jesus born?",answers:["Nazareth","Bethlehem","Jerusalem","Galilee"],correct:1},
+
+{question:"How many disciples did Jesus have?",answers:["10","11","12","13"],correct:2},
+
+{question:"Who defeated Goliath?",answers:["Saul","David","Solomon","Samuel"],correct:1},
+
+{question:"Who was swallowed by a big fish?",answers:["Jonah","Daniel","Peter","James"],correct:0},
+
+{question:"Who led the Israelites out of Egypt?",answers:["Moses","Abraham","Joseph","Aaron"],correct:0},
+
+{question:"What sea did Moses part?",answers:["Dead Sea","Red Sea","Sea of Galilee","Mediterranean Sea"],correct:1},
+
+{question:"Who was the strongest man in the Bible?",answers:["David","Samson","Joshua","Paul"],correct:1},
+
+{question:"Who was thrown into the lion's den?",answers:["Daniel","Isaiah","Joseph","Jacob"],correct:0},
+
+{question:"Who baptized Jesus?",answers:["Peter","John the Baptist","Paul","James"],correct:1},
+
+{question:"Who was Jesus' mother?",answers:["Mary","Martha","Ruth","Sarah"],correct:0},
+
+{question:"What did Jesus turn water into?",answers:["Milk","Wine","Juice","Oil"],correct:1},
+
+{question:"Who betrayed Jesus?",answers:["Peter","John","Judas","Thomas"],correct:2},
+
+{question:"Who was the first man?",answers:["Adam","Abraham","Noah","Moses"],correct:0},
+
+{question:"Who was the first woman?",answers:["Mary","Sarah","Eve","Ruth"],correct:2},
+
+{question:"What did God create on the first day?",answers:["Animals","Light","Humans","Plants"],correct:1},
+
+{question:"Who was the wisest king?",answers:["Saul","Solomon","David","Josiah"],correct:1},
+
+{question:"Who denied Jesus three times?",answers:["Peter","John","James","Andrew"],correct:0},
+
+{question:"What was Jesus' earthly father's name?",answers:["Joseph","Peter","James","Matthew"],correct:0},
+
+{question:"How many days did God take to create the world?",answers:["5","6","7","8"],correct:1}
+
+];
+
+let currentQuestion = 0;
+
+// Load question
+function loadQuestion() {
+
+const q = quizData[currentQuestion];
+document.getElementById("question").textContent = q.question;
+
+const answersDiv = document.getElementById("answers");
+answersDiv.innerHTML = "";
+
+q.answers.forEach((answer,index)=>{
+const btn = document.createElement("button");
+btn.textContent = answer;
+btn.onclick = () => checkAnswer(index);
+answersDiv.appendChild(btn);
+});
+
+document.getElementById("result").textContent = "";
+}
+
+// Check answer
+function checkAnswer(index){
+
+if(index === quizData[currentQuestion].correct){
+document.getElementById("result").textContent="✅ Correct!";
+}else{
+document.getElementById("result").textContent="❌ Wrong! Try again.";
+}
+
+}
+
+// Next question
+function nextQuestion(){
+currentQuestion = (currentQuestion + 1) % quizData.length;
+loadQuestion();
+}
+
+// Start quiz
+loadQuestion();
+
+</script>
+
+<a href="Page3.html">Page3</a>
+
+</body>
+</html>

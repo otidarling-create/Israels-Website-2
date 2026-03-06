@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Christian Word Search</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+}
+
+h1{
+    margin-top:20px;
+    text-shadow:0 0 15px lime;
+}
+
+#grid{
+    display:grid;
+    grid-template-columns: repeat(12,40px);
+    gap:5px;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.cell{
+    width:40px;
+    height:40px;
+    background:black;
+    border-radius:8px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:20px;
+    transition:0.3s;
+    box-shadow:0 0 5px #00ffcc;
+}
+
+.cell:hover{
+    background:#00ffcc;
+    color:black;
+}
+
+.selected{
+    background:yellow;
+    color:black;
+    box-shadow:0 0 20px yellow;
+}
+
+.found{
+    background:lime;
+    color:black;
+    box-shadow:0 0 25px lime;
+}
+
+#words{
+    margin-top:25px;
+}
+
+.word{
+    display:inline-block;
+    margin:8px;
+    padding:6px 10px;
+    border:1px solid white;
+    border-radius:8px;
+}
+
+.foundWord{
+    background:lime;
+    color:black;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Christian Word Search</h1>
+<p>Click letters to form a word</p>
+
+<div id="grid"></div>
+
+<h3>Find These Words:</h3>
+<div id="words"></div>
+
+<script>
+const gridSize = 12;
+
+const christianWords = [
+"JESUS",
+"FAITH",
+"GRACE",
+"LOVE",
+"PEACE",
+"PRAYER",
+"BIBLE",
+"TRUTH"
+];
+
+let grid = [];
+let selectedLetters = [];
+let selectedCells = [];
+
+function randomLetter(){
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    return alphabet[Math.floor(Math.random()*alphabet.length)];
+}
+
+/* Create empty grid */
+for(let r=0;r<gridSize;r++){
+    grid[r] = [];
+    for(let c=0;c<gridSize;c++){
+        grid[r][c] = "";
+    }
+}
+
+/* Place words horizontally */
+christianWords.forEach(word=>{
+    let row = Math.floor(Math.random()*gridSize);
+    let col = Math.floor(Math.random()*(gridSize-word.length));
+
+    for(let i=0;i<word.length;i++){
+        grid[row][col+i] = word[i];
+    }
+});
+
+/* Fill empty spaces */
+for(let r=0;r<gridSize;r++){
+    for(let c=0;c<gridSize;c++){
+        if(grid[r][c] === ""){
+            grid[r][c] = randomLetter();
+        }
+    }
+}
+
+/* Display grid */
+const gridDiv = document.getElementById("grid");
+
+grid.forEach((row,r)=>{
+    row.forEach((letter,c)=>{
+        const cell = document.createElement("div");
+        cell.className = "cell";
+        cell.textContent = letter;
+
+        cell.onclick = ()=>{
+            cell.classList.toggle("selected");
+
+            if(cell.classList.contains("selected")){
+                selectedLetters.push(letter);
+                selectedCells.push(cell);
+            }else{
+                selectedLetters = [];
+                selectedCells = [];
+            }
+
+            checkWord();
+        };
+
+        gridDiv.appendChild(cell);
+    });
+});
+
+/* Display word list */
+const wordsDiv = document.getElementById("words");
+
+christianWords.forEach(word=>{
+    const w = document.createElement("div");
+    w.className = "word";
+    w.textContent = word;
+    w.id = "word-"+word;
+    wordsDiv.appendChild(w);
+});
+
+/* Sound effect (no audio file needed) */
+function playSound(){
+    const audio = new AudioContext();
+    const oscillator = audio.createOscillator();
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(600, audio.currentTime);
+    oscillator.connect(audio.destination);
+    oscillator.start();
+    oscillator.stop(audio.currentTime + 0.2);
+}
+
+/* Check if selected letters make a word */
+function checkWord(){
+    const formed = selectedLetters.join("");
+
+    christianWords.forEach(word=>{
+        if(formed === word){
+
+            playSound();
+
+            selectedCells.forEach(cell=>{
+                cell.classList.remove("selected");
+                cell.classList.add("found");
+            });
+
+            document.getElementById("word-"+word).classList.add("foundWord");
+
+            selectedLetters = [];
+            selectedCells = [];
+        }
+    });
+}
+</script>
+<h4 style="color:white"><b>Zoom In To See Page4</b></h4>
+<a href="Page4.html">Page4</a>
+
+</body>
+</html>

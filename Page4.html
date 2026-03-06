@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Christian Kids AI</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+text-align:center;
+background: linear-gradient(135deg,#7cf7ff,#ffe97c,#b8ff7c);
+height:100vh;
+margin:0;
+}
+
+.container{
+margin-top:60px;
+background:white;
+padding:30px;
+width:70%;
+margin-left:auto;
+margin-right:auto;
+border-radius:20px;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
+}
+
+h1{
+color:#2b6cff;
+}
+
+input{
+padding:12px;
+width:60%;
+border-radius:10px;
+border:1px solid gray;
+font-size:16px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+background:#2b6cff;
+color:white;
+font-size:16px;
+border-radius:10px;
+cursor:pointer;
+}
+
+button:hover{
+background:#1c46b8;
+}
+
+#answer{
+margin-top:20px;
+font-size:20px;
+color:#333;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 Christian Kids AI</h1>
+<p>Ask me a Bible question!</p>
+
+<input id="question" placeholder="Ask a question...">
+<button onclick="ask()">Ask</button>
+
+<div id="answer"></div>
+
+</div>
+
+<!-- sound effect -->
+<audio id="sound">
+<source src="https://www.soundjay.com/buttons/sounds/button-3.mp3">
+</audio>
+
+<script>
+
+function speak(text){
+
+let speech = new SpeechSynthesisUtterance();
+speech.text = text;
+speech.rate = 0.9;
+speech.pitch = 1.2;
+
+speechSynthesis.speak(speech);
+
+}
+
+function ask(){
+
+let q = document.getElementById("question").value.toLowerCase();
+let answer = "";
+
+if(q.includes("who made the world")){
+answer="God made the world. Genesis chapter 1 verse 1.";
+}
+
+else if(q.includes("who is jesus")){
+answer="Jesus is the Son of God who came to save us.";
+}
+
+else if(q.includes("who built the ark")){
+answer="Noah built the ark when God sent the flood.";
+}
+
+else if(q.includes("who killed goliath")){
+answer="David killed Goliath using a sling and a stone.";
+}
+
+else if(q.includes("who parted the red sea")){
+answer="God used Moses to part the Red Sea.";
+}
+
+else if(q.includes("who was swallowed by a fish")){
+answer="Jonah was swallowed by a big fish.";
+}
+
+else if(q.includes("who was the strongest man")){
+answer="Samson was the strongest man in the Bible.";
+}
+
+else if(q.includes("who was the first man")){
+answer="Adam was the first man created by God.";
+}
+
+else if(q.includes("who was the first woman")){
+answer="Eve was the first woman created by God.";
+}
+
+else if(q.includes("where was jesus born")){
+answer="Jesus was born in Bethlehem.";
+}
+
+else if(q.includes("does god love me")){
+answer="Yes. God loves you very much. John chapter 3 verse 16.";
+}
+
+else if(q.includes("what is the bible")){
+answer="The Bible is God's Word that teaches us how to live.";
+}
+
+else{
+answer="Sorry, an upgraded version will be brought out soon so you can ask this question.";
+}
+
+document.getElementById("answer").innerText = answer;
+
+/* play sound */
+document.getElementById("sound").play();
+
+/* speak answer */
+speak(answer);
+
+}
+
+</script>
+<a href="Page5.html">Page5</a>
+</body>
+</html>

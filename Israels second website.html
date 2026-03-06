@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" >
+        <title>Israel's Second Website</title>
+
+    </head>
+    <body style="background-color: lightblue;">
+        <h1 style="color: green;">Israel's Website 2</h1>
+        <p>
+            <h3><b>Welcome To Israel's Website For Kids 👦👧</b></h3>
+            <img width="500" src="Jesus And The Little Children.jpg"></img>
+        </p>
+        <p>
+            <b>Please fill in this form:</b>
+            <h2>Enter Your Name</h2>
+    <input type="text" id="nameInput" placeholder="Type your name">
+    <button onclick="showName()">Submit</button>
+
+    <p id="output"></p>
+
+    <script>
+        function showName() {
+            let name = document.getElementById("nameInput").value.trim();
+            if (name === "") {
+                document.getElementById("output").textContent = "Please enter your name.";
+            } else {
+                document.getElementById("output").textContent = "Welcome"+ name;
+            }
+        }
+    
+    </script>
+    <h2>Enter your Age</h2>
+   
+    <input type="number" id="ageInput" placeholder="Type your age">
+    <button onclick="showAge()">Submit</button>
+
+    <p id="output"></p>
+
+    <script>
+        function showAge() {
+            let age = document.getElementById("ageInput").value.trim();
+            if (name === "") {
+                document.getElementById("output").numberContent = "Please enter your age.";
+
+            } else {
+                document.getElementById("output").numberContent="welcome " + name.; 
+            }
+        }
+
+    </script>
+     <a href="page2.html">Page2</a>
+
+
+
+    
+        </p>
+            
+        
+
+    </body>
+</html>
